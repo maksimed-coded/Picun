@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="icon" type="image/svg+xml" href="favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Soundtag</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Произошла неизвестная ошибка</title>
+    <meta content="upgrade-insecure-requests" http-equiv="Content-Security-Policy">
+    <meta content="nosniff" http-equiv="X-Content-Type-Options">
+    <meta content="DENY" http-equiv="X-Frame-Options">
+    <meta content="no-referrer-when-downgrade" name="referrer">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e3a8a 0, #4e79c7 40%, #8ab4f8 70%, #b3c6ff 100%);
+            background-size: 300% 300%;
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            text-align: center;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+            animation: cosmicGradient 30s ease infinite;
+        }
+
+        @keyframes cosmicGradient {
+            0% { background-position: 0 0; }
+            20% { background-position: 33% 33%; }
+            40% { background-position: 66% 66%; }
+            60% { background-position: 100% 100%; }
+            80% { background-position: 66% 66%; }
+            100% { background-position: 0 0; }
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 18vh;
+            gap: 35px;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.12);
+            padding: 60px;
+            border-radius: 35px;
+            box-shadow: 0 25px 70px rgba(30, 58, 138, 0.2), inset 0 0 35px rgba(179, 198, 255, 0.18);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            animation: pulseGlow 7s ease-in-out infinite;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .logo {
+            width: 180px;
+            height: auto;
+            filter: drop-shadow(0 10px 30px rgba(78, 121, 199, 0.6));
+            animation: floatAndTwirl 6s ease-in-out infinite;
+        }
+
+        .error-icon {
+            font-size: 120px;
+            color: #8ab4f8;
+            text-shadow: 0 0 30px rgba(138, 180, 248, 0.8), 0 0 20px rgba(179, 198, 255, 0.6), 0 0 10px #b3c6ff;
+            animation: bounceAndSparkle 3.5s ease-in-out infinite;
+        }
+
+        h1 {
+            font-size: 45px;
+            color: #fff;
+            margin: 0;
+            font-weight: 700;
+            text-shadow: 0 5px 18px rgba(30, 58, 138, 0.35);
+            animation: textFloatAndGlow 5s ease-in-out infinite;
+        }
+
+        .retry-button {
+            background: linear-gradient(45deg, #1e3a8a, #4e79c7, #8ab4f8);
+            color: #fff;
+            border: none;
+            padding: 22px 70px;
+            font-size: 24px;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.6s ease;
+            box-shadow: 0 12px 35px rgba(30, 58, 138, 0.5);
+            animation: buttonShimmer 6s ease-in-out infinite;
+        }
+
+        .retry-button:hover {
+            transform: translateY(-12px) scale(1.08);
+            box-shadow: 0 18px 45px rgba(30, 58, 138, 0.7);
+        }
+
+        .fake-mute-button {
+            background: linear-gradient(45deg, #4e79c7, #8ab4f8, #b3c6ff);
+            color: #fff;
+            padding: 24px 80px;
+            font-size: 26px;
+            font-weight: 600;
+            border: none;
+            border-radius: 30px;
+            cursor: not-allowed;
+            transition: transform 0.6s ease;
+            box-shadow: 0 12px 35px rgba(78, 121, 199, 0.5);
+            animation: buttonPulse 5s ease-in-out infinite;
+        }
+
+        .fake-mute-button:active {
+            transform: scale(0.92);
+        }
+
+        .background-effects {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .aurora {
+            position: absolute;
+            width: 250%;
+            height: 250%;
+            background: radial-gradient(circle, rgba(179, 198, 255, 0.2) 0, rgba(30, 58, 138, 0.08) 60%, transparent 80%);
+            animation: auroraWave 45s ease-in-out infinite, auroraRotate 90s linear infinite;
+            opacity: 0.5;
+        }
+
+        .star {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #b3c6ff;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(179, 198, 255, 0.9), 0 0 8px #8ab4f8;
+            opacity: 0.95;
+            animation: fallAndTwinkle 7s linear infinite;
+        }
+
+        .star:nth-child(1) { left: 15%; top: 10%; animation-delay: 0s; }
+        .star:nth-child(2) { left: 35%; top: 30%; animation-delay: 1.8s; }
+        .star:nth-child(3) { left: 55%; top: 5%; animation-delay: 3s; }
+        .star:nth-child(4) { left: 75%; top: 25%; animation-delay: 1s; }
+        .star:nth-child(5) { left: 90%; top: 15%; animation-delay: 2.5s; }
+        .star:nth-child(6) { left: 20%; top: 40%; animation-delay: 0.5s; }
+        .star:nth-child(7) { left: 60%; top: 20%; animation-delay: 2s; }
+        .star:nth-child(8) { left: 80%; top: 35%; animation-delay: 1.2s; }
+        .star:nth-child(9) { left: 25%; top: 50%; animation-delay: 0.8s; }
+        .star:nth-child(10) { left: 70%; top: 45%; animation-delay: 1.5s; }
+        .star:nth-child(11) { left: 45%; top: 15%; animation-delay: 2.2s; }
+        .star:nth-child(12) { left: 85%; top: 30%; animation-delay: 0.3s; }
+
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(78, 121, 199, 0.8);
+            border-radius: 50%;
+            box-shadow: 0 0 18px rgba(78, 121, 199, 0.7), 0 0 10px #8ab4f8;
+            opacity: 0.8;
+            animation: sparkleAndDrift 8s ease-in-out infinite;
+        }
+
+        .wave {
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            background: rgba(179, 198, 255, 0.15);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: wavePulse 9s ease-in-out infinite;
+        }
+
+        .wave:nth-child(1) { left: 20%; top: 20%; animation-delay: 0s; }
+        .wave:nth-child(2) { left: 60%; top: 60%; animation-delay: 2.5s; }
+        .wave:nth-child(3) { left: 40%; top: 30%; animation-delay: 4.5s; }
+        .wave:nth-child(4) { left: 70%; top: 10%; animation-delay: 1.5s; }
+        .wave:nth-child(5) { left: 30%; top: 50%; animation-delay: 3s; }
+
+        .spark {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #8ab4f8;
+            border-radius: 50%;
+            box-shadow: 0 0 12px rgba(138, 180, 248, 1), 0 0 8px #b3c6ff;
+            opacity: 0.9;
+            animation: sparkTwinkle 6s ease-in-out infinite;
+        }
+
+        .twirl {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(162, 210, 255, 0.3);
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: twirlSpin 10s linear infinite;
+        }
+
+        .twirl:nth-child(1) { left: 15%; top: 25%; animation-delay: 0s; }
+        .twirl:nth-child(2) { left: 65%; top: 55%; animation-delay: 2s; }
+        .twirl:nth-child(3) { left: 45%; top: 35%; animation-delay: 4s; }
+        .twirl:nth-child(4) { left: 75%; top: 20%; animation-delay: 1s; }
+        .twirl:nth-child(5) { left: 30%; top: 45%; animation-delay: 3s; }
+
+        .bubble {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: rgba(179, 198, 255, 0.5);
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: bubbleFloat 7s ease-in-out infinite;
+        }
+
+        .bubble:nth-child(1) { left: 10%; top: 70%; animation-delay: 0s; }
+        .bubble:nth-child(2) { left: 50%; top: 80%; animation-delay: 1.5s; }
+        .bubble:nth-child(3) { left: 80%; top: 60%; animation-delay: 2.5s; }
+        .bubble:nth-child(4) { left: 30%; top: 90%; animation-delay: 0.5s; }
+        .bubble:nth-child(5) { left: 60%; top: 75%; animation-delay: 2s; }
+        .bubble:nth-child(6) { left: 20%; top: 85%; animation-delay: 1s; }
+
+        .nebula {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(78, 121, 199, 0.1) 0, rgba(138, 180, 248, 0.05) 50%, transparent 70%);
+            opacity: 0.4;
+            animation: nebulaDrift 50s linear infinite;
+        }
+
+        .nebula:nth-child(1) { left: 10%; top: 10%; animation-delay: 0s; }
+        .nebula:nth-child(2) { left: 60%; top: 40%; animation-delay: 15s; }
+
+        @keyframes fallAndTwinkle {
+            0% { transform: translateY(-140vh) scale(1); opacity: 0.95; }
+            20% { opacity: 1; }
+            50% { transform: translateY(-70vh) scale(1.4); }
+            100% { transform: translateY(140vh) scale(1); opacity: 0; }
+        }
+
+        @keyframes auroraWave {
+            0% { transform: translate(-50%, -50%) rotate(0) scale(1); opacity: 0.5; }
+            20% { transform: translate(-45%, -55%) rotate(72deg) scale(1.15); opacity: 0.6; }
+            40% { transform: translate(-40%, -60%) rotate(144deg) scale(1.1); opacity: 0.5; }
+            60% { transform: translate(-45%, -55%) rotate(216deg) scale(1.15); opacity: 0.6; }
+            80% { transform: translate(-40%, -60%) rotate(288deg) scale(1.1); opacity: 0.5; }
+            100% { transform: translate(-50%, -50%) rotate(360deg) scale(1); opacity: 0.5; }
+        }
+
+        @keyframes auroraRotate {
+            0% { transform: translate(-50%, -50%) rotate(0); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 25px 70px rgba(30, 58, 138, 0.2), inset 0 0 35px rgba(179, 198, 255, 0.18); opacity: 0.9; }
+            25% { box-shadow: 0 30px 80px rgba(30, 58, 138, 0.3), inset 0 0 45px rgba(179, 198, 255, 0.22); opacity: 1; }
+            50% { box-shadow: 0 25px 70px rgba(30, 58, 138, 0.2), inset 0 0 35px rgba(179, 198, 255, 0.18); opacity: 0.9; }
+            75% { box-shadow: 0 30px 80px rgba(30, 58, 138, 0.3), inset 0 0 45px rgba(179, 198, 255, 0.22); opacity: 1; }
+            100% { box-shadow: 0 25px 70px rgba(30, 58, 138, 0.2), inset 0 0 35px rgba(179, 198, 255, 0.18); opacity: 0.9; }
+        }
+
+        @keyframes floatAndTwirl {
+            0% { transform: translateY(0) rotate(0); }
+            20% { transform: translateY(-30px) rotate(15deg); }
+            40% { transform: translateY(-25px) rotate(0deg); }
+            60% { transform: translateY(-30px) rotate(-15deg); }
+            80% { transform: translateY(-25px) rotate(10deg); }
+            100% { transform: translateY(0) rotate(0); }
+        }
+
+        @keyframes bounceAndSparkle {
+            0% { transform: scale(1) translateY(0); text-shadow: 0 0 30px rgba(138, 180, 248, 0.8), 0 0 20px rgba(179, 198, 255, 0.6), 0 0 10px #b3c6ff; }
+            20% { transform: scale(1.2) translateY(-8px); text-shadow: 0 0 35px rgba(138, 180, 248, 0.9), 0 0 25px rgba(179, 198, 255, 0.7), 0 0 12px #b3c6ff; }
+            40% { transform: scale(1) translateY(0); text-shadow: 0 0 30px rgba(138, 180, 248, 0.8), 0 0 20px rgba(179, 198, 255, 0.6), 0 0 10px #b3c6ff; }
+            60% { transform: scale(1.2) translateY(-8px); text-shadow: 0 0 35px rgba(138, 180, 248, 0.9), 0 0 25px rgba(179, 198, 255, 0.7), 0 0 12px #b3c6ff; }
+            80% { transform: scale(1) translateY(0); text-shadow: 0 0 30px rgba(138, 180, 248, 0.8), 0 0 20px rgba(179, 198, 255, 0.6), 0 0 10px #b3c6ff; }
+            100% { transform: scale(1.2) translateY(-8px); text-shadow: 0 0 35px rgba(138, 180, 248, 0.9), 0 0 25px rgba(179, 198, 255, 0.7), 0 0 12px #b3c6ff; }
+        }
+
+        @keyframes textFloatAndGlow {
+            0% { transform: translateY(0); opacity: 0.9; text-shadow: 0 5px 18px rgba(30, 58, 138, 0.35); }
+            20% { transform: translateY(-12px); opacity: 1; text-shadow: 0 7px 22px rgba(30, 58, 138, 0.45); }
+            40% { transform: translateY(0); opacity: 0.9; text-shadow: 0 5px 18px rgba(30, 58, 138, 0.35); }
+            60% { transform: translateY(-8px); opacity: 1; text-shadow: 0 7px 22px rgba(30, 58, 138, 0.45); }
+            80% { transform: translateY(0); opacity: 0.9; text-shadow: 0 5px 18px rgba(30, 58, 138, 0.35); }
+            100% { transform: translateY(-12px); opacity: 1; text-shadow: 0 7px 22px rgba(30, 58, 138, 0.45); }
+        }
+
+        @keyframes sparkleAndDrift {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+            15% { transform: translate(-20px, -25px) scale(1.4); opacity: 0.95; }
+            30% { transform: translate(20px, -35px) scale(1.2); opacity: 0.85; }
+            45% { transform: translate(-15px, -45px) scale(1.3); opacity: 0.9; }
+            60% { transform: translate(10px, -55px) scale(1.1); opacity: 0.8; }
+            75% { transform: translate(-5px, -65px) scale(1.2); opacity: 0.85; }
+            90% { transform: translate(5px, -75px) scale(1); opacity: 0.7; }
+            100% { transform: translate(0, -85px) scale(0.9); opacity: 0; }
+        }
+
+        @keyframes wavePulse {
+            0% { transform: scale(1); opacity: 0.6; }
+            25% { transform: scale(1.25); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 0.6; }
+            75% { transform: scale(1.25); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 0.6; }
+        }
+
+        @keyframes sparkTwinkle {
+            0% { transform: scale(1) translateY(0); opacity: 0.9; box-shadow: 0 0 12px rgba(138, 180, 248, 1), 0 0 8px #b3c6ff; }
+            20% { transform: scale(1.6) translateY(-15px); opacity: 1; box-shadow: 0 0 18px rgba(138, 180, 248, 1.2), 0 0 12px #b3c6ff; }
+            40% { transform: scale(1) translateY(0); opacity: 0.9; box-shadow: 0 0 12px rgba(138, 180, 248, 1), 0 0 8px #b3c6ff; }
+            60% { transform: scale(1.6) translateY(-15px); opacity: 1; box-shadow: 0 0 18px rgba(138, 180, 248, 1.2), 0 0 12px #b3c6ff; }
+            80% { transform: scale(1) translateY(0); opacity: 0.9; box-shadow: 0 0 12px rgba(138, 180, 248, 1), 0 0 8px #b3c6ff; }
+            100% { transform: scale(1.6) translateY(-15px); opacity: 1; box-shadow: 0 0 18px rgba(138, 180, 248, 1.2), 0 0 12px #b3c6ff; }
+        }
+
+        @keyframes twirlSpin {
+            0% { transform: rotate(0) scale(1); opacity: 0.7; }
+            25% { transform: rotate(90deg) scale(1.1); opacity: 0.8; }
+            50% { transform: rotate(180deg) scale(1); opacity: 0.7; }
+            75% { transform: rotate(270deg) scale(1.1); opacity: 0.8; }
+            100% { transform: rotate(360deg) scale(1); opacity: 0.7; }
+        }
+
+        @keyframes bubbleFloat {
+            0% { transform: translateY(0) scale(1); opacity: 0.8; }
+            25% { transform: translateY(-50px) scale(1.2); opacity: 0.9; }
+            50% { transform: translateY(0) scale(1); opacity: 0.8; }
+            75% { transform: translateY(-30px) scale(1.1); opacity: 0.9; }
+            100% { transform: translateY(0) scale(1); opacity: 0.8; }
+        }
+
+        @keyframes nebulaDrift {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+            25% { transform: translate(-10%, -10%) scale(1.05); opacity: 0.5; }
+            50% { transform: translate(10%, 10%) scale(1); opacity: 0.4; }
+            75% { transform: translate(-5%, -5%) scale(1.05); opacity: 0.5; }
+            100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+        }
+
+        @keyframes buttonShimmer {
+            0% { background-position: 0 50%; }
+            20% { background-position: 20% 70%; }
+            40% { background-position: 40% 50%; }
+            60% { background-position: 60% 30%; }
+            80% { background-position: 80% 50%; }
+            100% { background-position: 0 50%; }
+        }
+
+        @keyframes buttonPulse {
+            0% { transform: scale(1); box-shadow: 0 12px 35px rgba(78, 121, 199, 0.5); }
+            20% { transform: scale(1.04); box-shadow: 0 14px 40px rgba(78, 121, 199, 0.6); }
+            40% { transform: scale(1); box-shadow: 0 12px 35px rgba(78, 121, 199, 0.5); }
+            60% { transform: scale(1.04); box-shadow: 0 14px 40px rgba(78, 121, 199, 0.6); }
+            80% { transform: scale(1); box-shadow: 0 12px 35px rgba(78, 121, 199, 0.5); }
+            100% { transform: scale(1.04); box-shadow: 0 14px 40px rgba(78, 121, 199, 0.6); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin-top: 12vh;
+                padding: 45px;
+                gap: 30px;
+                width: 92%;
+            }
+            .logo { width: 150px; }
+            .error-icon { font-size: 110px; }
+            h1 { font-size: 40px; }
+            .retry-button { padding: 20px 65px; font-size: 22px; }
+            .fake-mute-button { padding: 22px 75px; font-size: 24px; }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                margin-top: 10vh;
+                padding: 35px;
+                width: 96%;
+            }
+            .logo { width: 130px; }
+            .error-icon { font-size: 100px; }
+            h1 { font-size: 35px; }
+            .retry-button { padding: 18px 60px; font-size: 20px; }
+            .fake-mute-button { padding: 20px 70px; font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-effects" id="effectWrapper"></div>
+    <div class="container" id="errorMessage">
+        <div class="error-icon">⚠</div>
+        <h1>Произошла неизвестная ошибка</h1>
+        <button class="retry-button" id="retryButton">Попробовать ещё раз</button>
+    </div>
+    <div class="container hidden" id="soundPlaying">
+        <img alt="Логотип бренда" class="logo" loading="lazy" src="assets/1.png">
+        <button class="fake-mute-button">🔇 Заглушить</button>
+    </div>
+    <audio id="funSound" loop preload="auto" src="assets/ston.mp3"></audio>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const errorMessage = document.getElementById('errorMessage');
+            const retryButton = document.getElementById('retryButton');
+            const soundPlaying = document.getElementById('soundPlaying');
+            const sound = document.getElementById('funSound');
+            const effectWrapper = document.getElementById('effectWrapper');
+
+            // Воспроизведение звука
+            sound.volume = 0.6; // Сохраняем комфортную громкость
+
+            function playSound() {
+                sound.play()
+                    .then(() => {
+                        errorMessage.style.display = 'none';
+                        soundPlaying.style.display = 'flex';
+                        sound.volume = 0.6;
+                    })
+                    .catch((e) => {
+                        console.error('Ошибка воспроизведения звука:', e);
+                        alert('Разрешите воспроизведение звука и попробуйте снова.');
+                    });
+            }
+
+            retryButton.addEventListener('click', playSound);
+            document.body.addEventListener('click', playSound, { once: true });
+
+            // Сохраняем все эффекты, только обновляем цвета
+            function createEffects() {
+                // Звёзды (12 штук)
+                for (let i = 0; i < 12; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'star';
+                    star.style.left = Math.random() * 100 + 'vw';
+                    star.style.top = Math.random() * 100 + 'vh';
+                    star.style.animationDuration = Math.random() * 7 + 5 + 's';
+                    star.style.animationDelay = Math.random() * 4 + 's';
+                    effectWrapper.appendChild(star);
+                }
+
+                // Частицы (50 штук)
+                for (let i = 0; i < 50; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + 'vw';
+                    particle.style.top = Math.random() * 100 + 'vh';
+                    particle.style.animationDuration = Math.random() * 9 + 4 + 's';
+                    particle.style.animationDelay = Math.random() * 5 + 's';
+                    effectWrapper.appendChild(particle);
+                }
+
+                // Волны (5 штук)
+                for (let i = 0; i < 5; i++) {
+                    const wave = document.createElement('div');
+                    wave.className = 'wave';
+                    wave.style.left = Math.random() * 100 + 'vw';
+                    wave.style.top = Math.random() * 100 + 'vh';
+                    wave.style.animationDelay = Math.random() * 6 + 's';
+                    effectWrapper.appendChild(wave);
+                }
+
+                // Искры (25 штук)
+                for (let i = 0; i < 25; i++) {
+                    const spark = document.createElement('div');
+                    spark.className = 'spark';
+                    spark.style.left = Math.random() * 100 + 'vw';
+                    spark.style.top = Math.random() * 100 + 'vh';
+                    spark.style.animationDuration = Math.random() * 7 + 4 + 's';
+                    spark.style.animationDelay = Math.random() * 4 + 's';
+                    effectWrapper.appendChild(spark);
+                }
+
+                // Завихрения (5 штук)
+                for (let i = 0; i < 5; i++) {
+                    const twirl = document.createElement('div');
+                    twirl.className = 'twirl';
+                    twirl.style.left = Math.random() * 100 + 'vw';
+                    twirl.style.top = Math.random() * 100 + 'vh';
+                    twirl.style.animationDelay = Math.random() * 7 + 's';
+                    effectWrapper.appendChild(twirl);
+                }
+
+                // Пузырьки (6 штук)
+                for (let i = 0; i < 6; i++) {
+                    const bubble = document.createElement('div');
+                    bubble.className = 'bubble';
+                    bubble.style.left = Math.random() * 100 + 'vw';
+                    bubble.style.top = Math.random() * 100 + 'vh';
+                    bubble.style.animationDelay = Math.random() * 6 + 's';
+                    effectWrapper.appendChild(bubble);
+                }
+
+                // Туманности (2 штуки)
+                for (let i = 0; i < 2; i++) {
+                    const nebula = document.createElement('div');
+                    nebula.className = 'nebula';
+                    nebula.style.left = Math.random() * 100 + 'vw';
+                    nebula.style.top = Math.random() * 100 + 'vh';
+                    nebula.style.animationDelay = Math.random() * 20 + 's';
+                    effectWrapper.appendChild(nebula);
+                }
+            }
+
+            createEffects();
+        });
+    </script>
+</body>
+</html>
